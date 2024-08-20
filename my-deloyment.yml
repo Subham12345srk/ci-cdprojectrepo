@@ -1,0 +1,44 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: my-deploymnent
+spec:
+    replica: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchlabels:
+            app: my-app
+    template: 
+        metadata:
+            name: my-pod
+            label:
+                app: my-app
+        spec:
+            containers:
+            - image: djsubha/myimage
+              name: mycontainer
+              ports:
+              - containerPort: 8501
+...
+---
+kind: Service
+apiVersion: v1
+metadata:
+    name: my-service
+spec:
+    type: NodePort
+    selector:
+        app: my-app
+    ports: 
+    - port: 80
+      targetPort: 8501
+      nodePort: 3001
+...
+
+
+      
+    
+        
+        
