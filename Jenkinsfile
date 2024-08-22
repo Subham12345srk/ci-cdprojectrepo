@@ -2,14 +2,14 @@ pipeline{
     agent{
         node{
             label "jenkinSlaveNodeLabel" 
-            
+
 
         }
     }
     stages{
         stage("checkout code stage"){
             steps{
-                git url "https://github.com/Subham12345srk/ci-cdprojectrepo.git",branch:"main"
+                git url: "https://github.com/Subham12345srk/ci-cdprojectrepo.git",branch: "main"
             }
         }
 
