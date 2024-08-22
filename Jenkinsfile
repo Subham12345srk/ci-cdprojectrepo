@@ -1,11 +1,11 @@
 pipeline{
     agent{
         node{
-            label "jenkinSlaveNodeLabel" 
+            label "JenkinsSlaveNodeLabel" 
 
 
         }
-    }
+    }s
     stages{
         stage("checkout code stage"){
             steps{
@@ -21,10 +21,13 @@ pipeline{
         }
         stage("push image to Dockerhub Stage"){
             steps{
+                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+
                 sh 'docker tag myimage djsubha/myimage'
 
                 sh 'docker push djsubha/myimage'
-
+                 }
 
             
             }
